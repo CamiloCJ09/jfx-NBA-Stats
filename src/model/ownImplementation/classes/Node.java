@@ -1,56 +1,44 @@
 package model.ownImplementation.classes;
 
-public class Node<E>{
+public class Node<T> {
+    private T value;
+    private Node<T> parent;
+    private Node<T> left;
+    private Node<T> right;
 
-    private Node<E> next;
-    private Node<E> behind;
-    private Node<E> left;
-    private Node<E> right;
-    private E value;
-
-    public Node(){}
-
-    public Node(E value){
+    public Node(T value) {
         this.value = value;
     }
 
-    public Node<E> getNext() {
-        return next;
+    public Node<T> getParent() {
+        return parent;
     }
 
-    public void setNext(Node<E> next) {
-        this.next = next;
+    public void setParent(Node<T> parent) {
+        this.parent = parent;
     }
 
-    public Node<E> getBehind() {
-        return behind;
-    }
-
-    public void setBehind(Node<E> behind) {
-        this.behind = behind;
-    }
-
-    public Node<E> getLeft() {
+    public Node<T> getLeft() {
         return left;
     }
 
-    public void setLeft(Node<E> left) {
+    public void setLeft(Node<T> left) {
         this.left = left;
     }
 
-    public Node<E> getRight() {
+    public Node<T> getRight() {
         return right;
     }
 
-    public void setRight(Node<E> right) {
+    public void setRight(Node<T> right) {
         this.right = right;
     }
 
-    public E getValue() {
+    public T getValue() {
         return value;
     }
 
-    public void setValue(E value) {
+    public void setValue(T value) {
         this.value = value;
     }
 }
