@@ -2,9 +2,14 @@ package model.ownImplementation.classes;
 
 public class Node<T> {
     private T value;
+    //Tree attributes
     private Node<T> parent;
     private Node<T> left;
     private Node<T> right;
+
+    //List attributes
+    private Node<T> next;
+    private Node<T> behind;
 
     public Node(T value) {
         this.value = value;
@@ -40,5 +45,21 @@ public class Node<T> {
 
     public void setValue(T value) {
         this.value = value;
+    }
+
+    public Node<T> getNext() {
+        return next;
+    }
+
+    public void setNext(Node<T> next) {
+        this.next = next;
+    }
+
+    public Node<T> getBehind() {
+        return behind;
+    }
+
+    public void setBehind(Node<T> behind) {
+        this.behind = behind;
     }
 }
