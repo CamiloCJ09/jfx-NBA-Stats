@@ -5,6 +5,8 @@ public class Node<T> {
     private Node<T> parent;
     private Node<T> left;
     private Node<T> right;
+    private Node<T> behind;
+    private Node<T> next;
 
     public Node(T value) {
         this.value = value;
@@ -40,5 +42,21 @@ public class Node<T> {
 
     public void setValue(T value) {
         this.value = value;
+    }
+
+    public Node<T> getBehind() {
+        return behind;
+    }
+
+    public Node<T> getNext() {
+        return next;
+    }
+
+    public void setBehind(Node<T> behind) {
+        this.behind = behind;
+    }
+
+    public void setNext(Node<T> next) {
+        this.next = next;
     }
 }

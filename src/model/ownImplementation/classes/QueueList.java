@@ -18,6 +18,7 @@ public class QueueList<E>  {
         this.front = first;
     }
 
+    /*
     public void enqueue(E e){
         Node<E> node = new Node<E>(e);
         if (front==null){
@@ -42,7 +43,7 @@ public class QueueList<E>  {
             return null;
         }
     }
-
+    */
     public Boolean isEmpty(){
         if (front==null){
             return true;
