@@ -27,6 +27,7 @@ public class Main extends Application {
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Game Store");
+        primaryStage.setResizable(false);
         primaryStage.show();
 
         FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("./jfx/principalPane.fxml"));

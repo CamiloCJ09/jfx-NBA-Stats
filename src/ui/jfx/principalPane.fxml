@@ -22,10 +22,10 @@
                   <Image url="@images/nba_PNG.png" />
                </image>
             </ImageView>
-            <JFXButton fx:id="btnAddPlayer" layoutX="76.0" layoutY="85.0" prefHeight="25.0" prefWidth="127.0" text="Agregar jugador" />
-            <JFXButton fx:id="btnDeletePlayer" layoutX="76.0" layoutY="161.0" prefHeight="25.0" prefWidth="122.0" text="Eliminar jugador" />
-            <JFXButton fx:id="btnEditPlayer" layoutX="81.0" layoutY="122.0" prefHeight="25.0" prefWidth="117.0" text="Editar jugador" />
-            <JFXButton fx:id="btnComsultInfo" layoutX="87.0" layoutY="200.0" prefHeight="25.0" prefWidth="113.0" text="Realizar consulta" />
+            <JFXButton fx:id="btnAddPlayer" layoutX="76.0" layoutY="85.0" onAction="#actAddPlayer" prefHeight="25.0" prefWidth="127.0" text="Agregar jugador" />
+            <JFXButton fx:id="btnDeletePlayer" layoutX="76.0" layoutY="161.0" onAction="#actDeletePlayer" prefHeight="25.0" prefWidth="122.0" text="Eliminar jugador" />
+            <JFXButton fx:id="btnEditPlayer" layoutX="81.0" layoutY="122.0" onAction="#actEditPlayer" prefHeight="25.0" prefWidth="117.0" text="Editar jugador" />
+            <JFXButton fx:id="btnComsultInfo" layoutX="87.0" layoutY="200.0" onAction="#actConsultInfo" prefHeight="25.0" prefWidth="113.0" text="Realizar consulta" />
             <Label layoutX="381.0" layoutY="375.0" prefHeight="23.0" prefWidth="205.0" text="© Copyright todos los derechos reservados">
                <font>
                   <Font name="System Bold Italic" size="10.0" />

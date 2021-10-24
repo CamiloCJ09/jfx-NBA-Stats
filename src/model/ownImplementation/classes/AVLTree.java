@@ -1,16 +1,78 @@
 package model.ownImplementation.classes;
 
+
 import model.ownImplementation.interfaces.IBinarySearchTree;
 
-public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearchTree<T> {
+public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     private Node<T> root;
     private String treeInfo;
     private int weight;
     private int height;
+    private int rollingFactor;
+    public static final int HIGH_DIFFERENCE = 1;
 
-    public BinarySearchTree() {
+
+    public AVLTree() {
         treeInfo = "";
+        rollingFactor = 0;
     }
+
+
+    public boolean isBalanced(){
+        return isBalanced(root);
+    }
+
+    public boolean isBalanced(Node<T> root){
+        if(root.getRight() != null && root.getLeft() !=null){
+            System.out.println("No es hoja");
+            rollingFactor = getHeight(root.getRight()) - getHeight(root.getLeft());
+            return getHeight(root.getRight()) - getHeight(root.getLeft()) <= HIGH_DIFFERENCE && getHeight(root.getRight()) - getHeight(root.getLeft()) > -2;
+        }else if(root.getRight()!=null){
+            System.out.println("Tampoco es hoja");
+            rollingFactor = getHeight(root.getRight());
+            return getHeight(root.getRight()) <=HIGH_DIFFERENCE && getHeight(root.getRight())> -2;
+        } else if(root.getLeft()!=null){
+            System.out.println("Sigue sin ser hoja");
+            rollingFactor = -getHeight(root.getLeft());
+            return -getHeight(root.getLeft()) <=HIGH_DIFFERENCE && -getHeight(root.getLeft())> -2;
+        }else{
+            System.out.println("Es hoja");
+            return true;
+        }
+
+
+
+    }
+
+    public void balance(Node<T> root){
+        if(!isBalanced(root)){
+            if(rollingFactor>1){
+                System.out.println("Cargado a la derecha");
+                if (getRollingFactor(root.getRight()) < 0) {
+                    System.out.println("Se rota doble izquierda");
+                    rigthRotate(root.getRight());
+                }else{
+                    System.out.println("se rota simple derecha");
+                    leftRotate(root);
+                }
+            }else{
+                System.out.println("Cargado a la Izquierda");
+                if (getRollingFactor(root.getLeft()) > 0) {
+                    System.out.println("Se rota doble derecha");
+                    leftRotate(root.getLeft());
+                }else{
+                    System.out.println("se rota simple derecha");
+                    rigthRotate(root);
+                }
+
+            }
+
+            balance(root);
+        }
+    }
+
+
+
 
     @Override
     public void addNode(T element) {
@@ -39,13 +101,21 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
                 addNode(root.getRight(),newNode);
             }
         }
+
+
+        if(!isBalanced(root)){
+            System.out.println("Va a balancear");
+            balance(root);
+        }else {
+            System.out.println("Balance?: "+isBalanced());
+        }
     }
 
     @Override
     public void delete(T element) {
         Node<T> toDelete = search(root,element);
-        System.out.println("Raiz: "+root.getValue());
-        System.out.println("El que se elimina: "+toDelete.getValue());
+        // System.out.println("Raiz: "+root.getValue());
+        // System.out.println("El que se elimina: "+toDelete.getValue());
         delete(toDelete);
 
     }
@@ -60,7 +130,7 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
             if(toDelete.getLeft() == null && toDelete.getRight()== null){
                 if(toDelete.getParent()!=null){
                     Node<T>aux = toDelete.getParent();
-                    System.out.println("padre: "+aux.getValue());
+                    //System.out.println("padre: "+aux.getValue());
                     if(aux.getLeft() != null ){
                         if(aux.getLeft().equals(toDelete)){
                             toDelete.getParent().setLeft(null);
@@ -75,29 +145,64 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
                     toDelete.setParent(null);
                     //System.out.println(toDelete.getParent());
 
+
+                    if(!isBalanced(aux)){
+                        balance(aux);
+                    }
+
+
+
                 }
             }else{
                 if(toDelete.getLeft() == null){
-                    //   System.out.println("Tiene hijo derecho");
+                    System.out.println("Tiene hijo derecho");
                     Node<T> aux = toDelete.getRight();
                     toDelete.setRight(null);
                     aux.setParent(toDelete.getParent());
                     toDelete.getParent().setRight(aux);
 
+
+                    if(!isBalanced(aux)){
+                        balance(aux);
+                    }
+
+
+
                 }else if(toDelete.getRight() == null){
                     // System.out.println("Tiene hijo izquierdo");
                     Node<T> aux = toDelete.getLeft();
                     toDelete.setLeft(null);
+
                     aux.setParent(toDelete.getParent());
+
                     toDelete.getParent().setLeft(aux);
+                    if(!isBalanced(aux)){
+                        balance(aux);
+                    }
+
+
+
                 }else{
                     //System.out.println("Tiene ambos");
                     Node<T> successor = successor(toDelete);
                     toDelete.setValue(successor.getValue());
                     delete(successor);
+
+                    if(!isBalanced(toDelete)){
+                        balance(toDelete);
+                    }
+
+
                 }
             }
+
+
+
         }
+
+
+
+
 
     }
 
@@ -134,6 +239,9 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
         }
     }
 
+    public Node<T> min(){
+        return min(root);
+    }
     @Override
     public Node<T> min(Node<T> node) {
         if(node.getLeft()!=null){
@@ -144,10 +252,14 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
 
     }
 
+    public Node<T> max(){
+        return max(root);
+    }
+
     @Override
     public Node<T> max(Node<T> node){
         if(node.getRight()!=null){
-            return min(node.getRight());
+            return max(node.getRight());
         }else{
             return node;
         }
@@ -203,8 +315,78 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
         this.treeInfo = treeInfo;
     }
 
+
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+    public int getHeight(){
+        return getHeight(root);
+    }
+
+    private int getHeight(Node<T> node) {
+        if(node == null){
+            return 0;
+        }else{
+            return 1+ Math.max(getHeight(node.getLeft()),getHeight(node.getRight()));
+        }
+
+    }
+
+    public int getRollingFactor() {
+        return rollingFactor;
+    }
+
+    private int getRollingFactor(Node<T> node){
+        return getHeight(node.getRight())-getHeight(node.getLeft());
+    }
+
+    public void rigthRotate(Node<T> node){
+        System.out.println("Se rota: "+node.getValue()+" a la derecha");
+        Node<T> aux = node.getLeft();
+        node.setLeft(aux.getRight());
+        if(aux.getRight()!=null){
+            aux.getRight().setParent(node);
+        }
+        aux.setParent(node.getParent());
+
+        if(node.getParent()==null){
+            root = aux;
+        }else{
+            if(node.getValue().compareTo(node.getParent().getValue())<0){
+                node.getParent().setLeft(aux);
+            }else{
+                node.getParent().setRight(aux);
+            }
+        }
+
+        aux.setRight(node);
+        node.setParent(aux);
+
+
+    }
+
+    public void leftRotate(Node<T> node){
+        System.out.println("Se rota: "+node.getValue()+" a la izquierda");
+        Node<T> aux = node.getRight();
+        node.setRight(aux.getLeft());
+        if(aux.getLeft()!=null){
+            aux.getLeft().setParent(node);
+        }
+        aux.setParent(node.getParent());
+        if(node.getParent()==null){
+            root = aux;
+        }else{
+            if(node.getValue().compareTo(node.getParent().getValue())<0){
+                node.getParent().setLeft(aux);
+            }else{
+                node.getParent().setRight(aux);
+            }
+        }
+        aux.setLeft(node);
+        node.setParent(aux);
+
+    }
+
 
 }
