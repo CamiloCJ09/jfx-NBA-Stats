@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <JFXButton layoutX="472.0" layoutY="347.0" text="Añadir jugador" />
+      <JFXButton layoutX="472.0" layoutY="347.0" onAction="#actAddPlayerAddScreen" text="Añadir jugador" />
       <JFXTextField fx:id="tfPlayerName" layoutX="46.0" layoutY="45.0" />
       <JFXTextField fx:id="tfPlayerLastName" layoutX="46.0" layoutY="109.0" />
       <JFXTextField fx:id="tfPlayerAge" layoutX="46.0" layoutY="175.0" />

@@ -6,11 +6,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class Main extends Application {
 
     private ApplicationGUI gui;
 
-    public Main() {gui = new ApplicationGUI();}
+    public Main() throws IOException {gui = new ApplicationGUI();}
 
     public static void main(String[] args){
         launch(args);

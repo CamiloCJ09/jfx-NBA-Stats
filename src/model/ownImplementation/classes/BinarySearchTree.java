@@ -183,7 +183,7 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     private void treeToList(Node<T> node){
         if(node!=null){
             printInOrder(node.getLeft());
-            treeInList.add((T) node);
+            treeInList.add(node.getValue());
             printInOrder(node.getRight());
         }
     }
