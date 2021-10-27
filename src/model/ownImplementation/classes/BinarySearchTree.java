@@ -2,14 +2,18 @@ package model.ownImplementation.classes;
 
 import model.ownImplementation.interfaces.IBinarySearchTree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearchTree<T> {
     private Node<T> root;
     private String treeInfo;
     private int weight;
     private int height;
-
+    private List<T> treeInList;
     public BinarySearchTree() {
         treeInfo = "";
+        treeInList = new ArrayList<>();
     }
 
     @Override
@@ -170,6 +174,19 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
         }
     }
 
+    public List<T> treeToList(){
+        if(root!=null) {
+            treeToList(root);
+        }
+        return treeInList;
+    }
+    private void treeToList(Node<T> node){
+        if(node!=null){
+            printInOrder(node.getLeft());
+            treeInList.add((T) node);
+            printInOrder(node.getRight());
+        }
+    }
     public int getWeight(){
         weight = 0;
         if(root!=null) {

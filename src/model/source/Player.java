@@ -1,6 +1,6 @@
 package model.source;
 
-public class Player {
+public class Player implements Comparable<Player> {
     private String name;
     private String lastName;
     private int age;
@@ -10,6 +10,7 @@ public class Player {
     private double assists;
     private double robberies;
     private double blocks;
+    private int prefStat;
 
     public Player(String name, String lastName, int age, String team, double points, double rebounds, double assists, double robberies, double blocks) {
         this.name = name;
@@ -21,6 +22,7 @@ public class Player {
         this.assists = assists;
         this.robberies = robberies;
         this.blocks = blocks;
+        this.prefStat = 0;
     }
 
     public String getName() {
@@ -93,5 +95,26 @@ public class Player {
 
     public void setBlocks(double blocks) {
         this.blocks = blocks;
+    }
+
+    public void changePrefStat(int stat){
+        prefStat = stat;
+    }
+    @Override
+    public int compareTo(Player player) {
+        switch(prefStat){
+            case 1:
+                return (int) (points-player.getPoints());
+            case 2:
+                return (int) (rebounds-player.getRebounds());
+            case 3:
+                return (int) (assists-player.getAssists());
+            case 4:
+                return (int) (robberies-player.getRobberies());
+            case 5:
+                return (int) (blocks-player.getBlocks());
+            default:
+                return 0;
+        }
     }
 }
