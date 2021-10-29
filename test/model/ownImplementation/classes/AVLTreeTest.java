@@ -6,7 +6,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AVLTreeTest {
 
+    AVLTree<Integer> tree;
 
+    void setUp1(){
+        tree = new AVLTree<>();
+    }
 
     @Test
     void testIsBalanced() {
@@ -24,8 +28,6 @@ class AVLTreeTest {
     void delete() {
     }
 
-
-
     @Test
     void testSearch() {
     }
@@ -33,8 +35,6 @@ class AVLTreeTest {
     @Test
     void testSuccessor() {
     }
-
-
 
     @Test
     void testMin() {

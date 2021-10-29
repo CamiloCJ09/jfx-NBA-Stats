@@ -2,20 +2,26 @@ package model.ownImplementation.classes;
 
 import model.ownImplementation.interfaces.IBinarySearchTree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearchTree<T> {
     private Node<T> root;
     private String treeInfo;
     private int weight;
     private int height;
-
+    private List<T> treeInList;
     public BinarySearchTree() {
         treeInfo = "";
+        treeInList = new ArrayList<>();
     }
 
     @Override
     public void addNode(T element) {
+        System.out.println("Está agregando a "+element.toString());
         Node<T> newNode = new Node<>(element);
         if(root == null){
+            System.out.println("Entra root");
             root = newNode;
         }else{
             addNode(root,newNode);
@@ -165,11 +171,27 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     private void printInOrder(Node<T> node){
         if(node!=null){
             printInOrder(node.getLeft());
-            treeInfo+=node.getValue()+" ";
+            treeInfo+=node.getValue().toString()+" ";
             printInOrder(node.getRight());
         }
     }
 
+    public List<T> treeToList(){
+        if(root!=null) {
+            treeToList(root);
+        }
+
+
+        return treeInList;
+    }
+    private void treeToList(Node<T> node){
+        if(node!=null){
+            treeToList(node.getLeft());
+            treeInList.add(node.getValue());
+            treeToList(node.getRight());
+
+        }
+    }
     public int getWeight(){
         weight = 0;
         if(root!=null) {
