@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane prefHeight="495.0" prefWidth="848.0" BorderPane.alignment="CENTER">
          <children>
@@ -23,7 +23,13 @@
                   <TableColumn fx:id="tcPlayerBlocks" prefWidth="62.0" text="Blocks" />
               </columns>
             </TableView>
-            <JFXButton fx:id="btnImportData" layoutX="661.0" layoutY="452.0" onAction="#actImportData" text="Importar datos" />
+            <JFXButton fx:id="btnImportData" buttonType="RAISED" layoutX="661.0" layoutY="452.0" onAction="#actImportData" ripplerFill="#16da6b" text="Importar datos" />
+            <JFXButton buttonType="RAISED" layoutX="336.0" layoutY="24.0" onAction="#actFilterbyPoints" ripplerFill="#d6851b" text="Filtrar por puntos" />
+            <JFXButton buttonType="RAISED" layoutX="333.0" layoutY="63.0" onAction="#actFilterbyRebounds" ripplerFill="#d0900f" text="Filtrar por rebotes" />
+            <JFXButton buttonType="RAISED" layoutX="489.0" layoutY="24.0" onAction="#actFilterbyAssists" ripplerFill="#d09215" text="Filtrar por asistencias" />
+            <JFXButton buttonType="RAISED" layoutX="507.0" layoutY="63.0" onAction="#actFilterbyRobberies" ripplerFill="#d08b0a" text="Filtrar por robos" />
+            <JFXButton buttonType="RAISED" layoutX="646.0" layoutY="44.0" onAction="#actFilterbyBlocks" ripplerFill="#d3910d" text="Filtrar por bloqueos" />
+            <JFXButton buttonType="RAISED" layoutX="101.0" layoutY="37.0" onAction="#removeFilter" ripplerFill="#c32020" text="Remover filtros" />
          </children>
       </AnchorPane>
    </center>

@@ -5,21 +5,23 @@ import model.ownImplementation.interfaces.IBinarySearchTree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearchTree<T> {
-    private Node<T> root;
+public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearchTree<T,K> {
+    private Node<T,K> root;
     private String treeInfo;
     private int weight;
     private int height;
-    private List<T> treeInList;
+
     public BinarySearchTree() {
         treeInfo = "";
-        treeInList = new ArrayList<>();
+        //treeInList = new ArrayList<>();
     }
 
+
+
     @Override
-    public void addNode(T element) {
+    public void addNode(T element, K key) {
         System.out.println("Está agregando a "+element.toString());
-        Node<T> newNode = new Node<>(element);
+        Node<T,K> newNode = new Node<>(element,key);
         if(root == null){
             System.out.println("Entra root");
             root = newNode;
@@ -29,8 +31,8 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
 
     }
 
-    private void addNode(Node<T> root, Node<T> newNode){
-        if(newNode.getValue().compareTo(root.getValue())<=0){
+    private void addNode(Node<T,K> root, Node<T,K> newNode){
+        if(newNode.getKey().compareTo(root.getKey())<=0){
             if(root.getLeft()==null){
                 root.setLeft(newNode);
                 newNode.setParent(root);
@@ -48,8 +50,8 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     }
 
     @Override
-    public void delete(T element) {
-        Node<T> toDelete = search(root,element);
+    public void delete(K element) {
+        Node<T,K> toDelete = search(element);
         System.out.println("Raiz: "+root.getValue());
         System.out.println("El que se elimina: "+toDelete.getValue());
         delete(toDelete);
@@ -57,15 +59,20 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     }
 
     @Override
+    public Node<T,K> search( K key) {
+        return search(root,key);
+    }
+
+    @Override
     public boolean isEmpty() {
         return(root == null);
     }
 
-    private void delete(Node<T> toDelete){
+    private void delete(Node<T,K> toDelete){
         if(toDelete!=null){
             if(toDelete.getLeft() == null && toDelete.getRight()== null){
                 if(toDelete.getParent()!=null){
-                    Node<T>aux = toDelete.getParent();
+                    Node<T,K>aux = toDelete.getParent();
                     System.out.println("padre: "+aux.getValue());
                     if(aux.getLeft() != null ){
                         if(aux.getLeft().equals(toDelete)){
@@ -85,20 +92,20 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
             }else{
                 if(toDelete.getLeft() == null){
                     //   System.out.println("Tiene hijo derecho");
-                    Node<T> aux = toDelete.getRight();
+                    Node<T, K> aux = toDelete.getRight();
                     toDelete.setRight(null);
                     aux.setParent(toDelete.getParent());
                     toDelete.getParent().setRight(aux);
 
                 }else if(toDelete.getRight() == null){
                     // System.out.println("Tiene hijo izquierdo");
-                    Node<T> aux = toDelete.getLeft();
+                    Node<T, K> aux = toDelete.getLeft();
                     toDelete.setLeft(null);
                     aux.setParent(toDelete.getParent());
                     toDelete.getParent().setLeft(aux);
                 }else{
                     //System.out.println("Tiene ambos");
-                    Node<T> successor = successor(toDelete);
+                    Node<T,K> successor = successor(toDelete);
                     toDelete.setValue(successor.getValue());
                     delete(successor);
                 }
@@ -107,33 +114,38 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
 
     }
 
-    public Node<T> search(T key){
-        return search(root,key);
-    }
-    @Override
-    public Node<T> search(Node<T> root,T key) {
-        if(root.getValue().compareTo(key)==0){
-            // System.out.println("Es igual");
-            return root;
-        }else{
-            // System.out.println("Compara "+root.getValue()+" con "+key);
-            if(key.compareTo(root.getValue())>=0){
-                //   System.out.println("Se va por la derecha");
-                return search(root.getRight(), key);
-            }else{
-                // System.out.println("Se va por la Izquierda");
-                return search(root.getLeft(),key);
+
+
+
+
+    public Node<T,K> search(Node<T,K> root, K key) {
+        if (root == null) {
+            return null;
+        }else {
+            if (root.getKey().compareTo(key) == 0) {
+                // System.out.println("Es igual");
+                return root;
+            } else {
+                // System.out.println("Compara "+root.getValue()+" con "+key);
+                if (key.compareTo(root.getKey()) >= 0) {
+                    //   System.out.println("Se va por la derecha");
+                    return search(root.getRight(), key);
+                } else {
+                    // System.out.println("Se va por la Izquierda");
+                    return search(root.getLeft(), key);
+                }
             }
+
         }
 
     }
 
 
     @Override
-    public Node<T> successor(Node<T> current) {
+    public Node<T,K> successor(Node<T,K> current) {
         if(current.getRight() != null){
             return min(current.getRight());
-        }else if(current.getParent().getValue().compareTo(current.getValue()) > 0){
+        }else if(current.getParent().getKey().compareTo(current.getKey()) > 0){
             return current.getParent();
         }else{
             return current.getParent().getParent();
@@ -141,7 +153,7 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     }
 
     @Override
-    public Node<T> min(Node<T> node) {
+    public Node<T,K> min(Node<T,K> node) {
         if(node.getLeft()!=null){
             return min(node.getLeft());
         }else{
@@ -151,7 +163,7 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     }
 
     @Override
-    public Node<T> max(Node<T> node){
+    public Node<T,K> max(Node<T,K> node){
         if(node.getRight()!=null){
             return min(node.getRight());
         }else{
@@ -168,7 +180,7 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
         return treeInfo;
     }
 
-    private void printInOrder(Node<T> node){
+    private void printInOrder(Node<T,K> node){
         if(node!=null){
             printInOrder(node.getLeft());
             treeInfo+=node.getValue().toString()+" ";
@@ -177,18 +189,17 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     }
 
     public List<T> treeToList(){
+        List<T> treeInList = new ArrayList<>();
         if(root!=null) {
-            treeToList(root);
+            treeToList(root, treeInList);
         }
-
-
         return treeInList;
     }
-    private void treeToList(Node<T> node){
+    private void treeToList(Node<T,K> node,List<T> treeInList){
         if(node!=null){
-            treeToList(node.getLeft());
+            treeToList(node.getLeft(), treeInList);
             treeInList.add(node.getValue());
-            treeToList(node.getRight());
+            treeToList(node.getRight(), treeInList);
 
         }
     }
@@ -201,7 +212,7 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
         return weight;
     }
 
-    private void getWeight(Node<T> node){
+    private void getWeight(Node<T,K> node){
         if(node!=null){
             printInOrder(node.getLeft());
             weight++;
@@ -209,11 +220,11 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
         }
     }
 
-    public Node<T> getRoot() {
+    public Node<T,K> getRoot() {
         return root;
     }
 
-    public void setRoot(Node<T> root) {
+    public void setRoot(Node<T,K> root) {
         this.root = root;
     }
 
@@ -228,5 +239,10 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
+
+
+
+
 
 }

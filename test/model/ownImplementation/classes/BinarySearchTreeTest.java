@@ -5,33 +5,43 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinarySearchTreeTest {
-    private BinarySearchTree<Integer> tree;
+    private BinarySearchTree<Integer,Integer> tree;
 
     public void setup1() {
+
         tree = new BinarySearchTree<>();
     }
 
     public void setup2() {
+        /*
         tree = new BinarySearchTree<>();
         tree.addNode(3);
         tree.addNode(5);
+
+         */
     }
 
     public void setup3() {
+        /*
         tree = new BinarySearchTree<>();
-        tree.addNode(3);
-        tree.addNode(5);
-        tree.addNode(1);
-        tree.addNode(2);
-        tree.addNode(7);
-        tree.addNode(8);
+        tree.addNode(0,3);
+        tree.addNode(0,5);
+        tree.addNode(0,61);
+        tree.addNode(0,2);
+        tree.addNode(0,7);
+        tree.addNode(0,8);
+
+         */
     }
     @Test
     public void addNode1(){
+        /*
         setup1();
         tree.addNode(3);
         tree.addNode(5);
         assertFalse(tree.isEmpty());
+
+         */
     }
     @Test
     public void delete(){

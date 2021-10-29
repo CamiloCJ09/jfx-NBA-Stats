@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AVLTreeTest {
 
-    AVLTree<Integer> tree;
+    AVLTree<Integer, Integer> tree;
 
     void setUp1(){
         tree = new AVLTree<>();
