@@ -1,5 +1,6 @@
 package model.source;
 
+import model.ownImplementation.classes.AVLTree;
 import model.ownImplementation.classes.BinarySearchTree;
 
 import java.io.BufferedReader;
@@ -13,10 +14,10 @@ public class AppAdministrator {
 
     private ArrayList<Player> arrayList = new ArrayList<>();
     private BinarySearchTree<Player> byPoints = new BinarySearchTree<>();
-    private BinarySearchTree<Player> byRebounds = new BinarySearchTree<>();
-    private BinarySearchTree<Player> byAssits = new BinarySearchTree<>();
-    private BinarySearchTree<Player> byRobberies = new BinarySearchTree<>();
-    private BinarySearchTree<Player> byBlocks= new BinarySearchTree<>();
+    private AVLTree<Player> byRebounds = new AVLTree<>();
+    private AVLTree<Player> byAssits = new AVLTree<>();
+    private AVLTree<Player> byRobberies = new AVLTree<>();
+    private AVLTree<Player> byBlocks= new AVLTree<>();
 
     public void importPlayers(String filename) throws IOException {
         BufferedReader br = new BufferedReader(new FileReader(filename));
@@ -42,14 +43,7 @@ public class AppAdministrator {
     public void addPlayer(String name, String lastName, int age, String team, double points, double rebounds, double assists, double robberies, double blocks){
         Player p = new Player(name, lastName, age, team, points, rebounds, assists, robberies,blocks);
         arrayList.add(p);
-        p.changePrefStat(1);
-        byPoints.addNode(p);
-        p.changePrefStat(2);
-        byRebounds.addNode(p);
-        p.changePrefStat(3);
-        byAssits.addNode(p);
-        p.changePrefStat(4);
-        byRobberies.addNode(p);
+        //System.out.println(p.getName());
     }
 
     public ArrayList<Player> getArrayList() {
@@ -68,35 +62,35 @@ public class AppAdministrator {
         this.byPoints = byPoints;
     }
 
-    public BinarySearchTree<Player> getByRebounds() {
+    public AVLTree<Player> getByRebounds() {
         return byRebounds;
     }
 
-    public void setByRebounds(BinarySearchTree<Player> byRebounds) {
+    public void setByRebounds(AVLTree<Player> byRebounds) {
         this.byRebounds = byRebounds;
     }
 
-    public BinarySearchTree<Player> getByAssits() {
+    public AVLTree<Player> getByAssits() {
         return byAssits;
     }
 
-    public void setByAssits(BinarySearchTree<Player> byAssits) {
+    public void setByAssits(AVLTree<Player> byAssits) {
         this.byAssits = byAssits;
     }
 
-    public BinarySearchTree<Player> getByRobberies() {
+    public AVLTree<Player> getByRobberies() {
         return byRobberies;
     }
 
-    public void setByRobberies(BinarySearchTree<Player> byRobberies) {
+    public void setByRobberies(AVLTree<Player> byRobberies) {
         this.byRobberies = byRobberies;
     }
 
-    public BinarySearchTree<Player> getByBlocks() {
+    public AVLTree<Player> getByBlocks() {
         return byBlocks;
     }
 
-    public void setByBlocks(BinarySearchTree<Player> byBlocks) {
+    public void setByBlocks(AVLTree<Player> byBlocks) {
         this.byBlocks = byBlocks;
     }
 }

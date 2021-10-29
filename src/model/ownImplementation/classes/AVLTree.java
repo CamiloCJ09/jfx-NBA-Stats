@@ -3,6 +3,9 @@ package model.ownImplementation.classes;
 
 import model.ownImplementation.interfaces.IBinarySearchTree;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     private Node<T> root;
     private String treeInfo;
@@ -24,19 +27,19 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
 
     public boolean isBalanced(Node<T> root){
         if(root.getRight() != null && root.getLeft() !=null){
-            System.out.println("No es hoja");
+            //System.out.println("No es hoja");
             rollingFactor = getHeight(root.getRight()) - getHeight(root.getLeft());
             return getHeight(root.getRight()) - getHeight(root.getLeft()) <= HIGH_DIFFERENCE && getHeight(root.getRight()) - getHeight(root.getLeft()) > -2;
         }else if(root.getRight()!=null){
-            System.out.println("Tampoco es hoja");
+            //System.out.println("Tampoco es hoja");
             rollingFactor = getHeight(root.getRight());
             return getHeight(root.getRight()) <=HIGH_DIFFERENCE && getHeight(root.getRight())> -2;
         } else if(root.getLeft()!=null){
-            System.out.println("Sigue sin ser hoja");
+            //System.out.println("Sigue sin ser hoja");
             rollingFactor = -getHeight(root.getLeft());
             return -getHeight(root.getLeft()) <=HIGH_DIFFERENCE && -getHeight(root.getLeft())> -2;
         }else{
-            System.out.println("Es hoja");
+            //System.out.println("Es hoja");
             return true;
         }
 
@@ -47,21 +50,21 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     public void balance(Node<T> root){
         if(!isBalanced(root)){
             if(rollingFactor>1){
-                System.out.println("Cargado a la derecha");
+                //System.out.println("Cargado a la derecha");
                 if (getRollingFactor(root.getRight()) < 0) {
-                    System.out.println("Se rota doble izquierda");
+                    ////System.out.println("Se rota doble izquierda");
                     rigthRotate(root.getRight());
                 }else{
-                    System.out.println("se rota simple derecha");
+                    //.out.println("se rota simple derecha");
                     leftRotate(root);
                 }
             }else{
-                System.out.println("Cargado a la Izquierda");
+                //System.out.println("Cargado a la Izquierda");
                 if (getRollingFactor(root.getLeft()) > 0) {
-                    System.out.println("Se rota doble derecha");
+                    //System.out.println("Se rota doble derecha");
                     leftRotate(root.getLeft());
                 }else{
-                    System.out.println("se rota simple derecha");
+                    //System.out.println("se rota simple derecha");
                     rigthRotate(root);
                 }
 
@@ -72,6 +75,20 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     }
 
 
+    public List<T> treeToList(){
+        List<T> treeInList = new ArrayList<>();
+        if(root!=null) {
+            treeToList(root, treeInList);
+        }
+        return treeInList;
+    }
+    private void treeToList(Node<T> node,List<T> treeInList){
+        if(node!=null){
+            treeToList(node.getLeft(), treeInList);
+            treeInList.add(node.getValue());
+            treeToList(node.getRight(), treeInList);
+        }
+    }
 
 
     @Override
@@ -104,10 +121,10 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
 
 
         if(!isBalanced(root)){
-            System.out.println("Va a balancear");
+            //System.out.println("Va a balancear");
             balance(root);
         }else {
-            System.out.println("Balance?: "+isBalanced());
+            //System.out.println("Balance?: "+isBalanced());
         }
     }
 
@@ -155,7 +172,7 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
                 }
             }else{
                 if(toDelete.getLeft() == null){
-                    System.out.println("Tiene hijo derecho");
+                    //System.out.println("Tiene hijo derecho");
                     Node<T> aux = toDelete.getRight();
                     toDelete.setRight(null);
                     aux.setParent(toDelete.getParent());
@@ -277,7 +294,7 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     private void printInOrder(Node<T> node){
         if(node!=null){
             printInOrder(node.getLeft());
-            treeInfo+=node.getValue()+" ";
+            treeInfo+=node.getValue().toString()+" ";
             printInOrder(node.getRight());
         }
     }
@@ -342,7 +359,7 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     }
 
     public void rigthRotate(Node<T> node){
-        System.out.println("Se rota: "+node.getValue()+" a la derecha");
+        //System.out.println("Se rota: "+node.getValue()+" a la derecha");
         Node<T> aux = node.getLeft();
         node.setLeft(aux.getRight());
         if(aux.getRight()!=null){
@@ -367,7 +384,7 @@ public class AVLTree<T extends Comparable<T>>implements IBinarySearchTree<T> {
     }
 
     public void leftRotate(Node<T> node){
-        System.out.println("Se rota: "+node.getValue()+" a la izquierda");
+        //System.out.println("Se rota: "+node.getValue()+" a la izquierda");
         Node<T> aux = node.getRight();
         node.setRight(aux.getLeft());
         if(aux.getLeft()!=null){

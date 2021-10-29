@@ -10,10 +10,9 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     private String treeInfo;
     private int weight;
     private int height;
-    private List<T> treeInList;
     public BinarySearchTree() {
         treeInfo = "";
-        treeInList = new ArrayList<>();
+        //treeInList = new ArrayList<>();
     }
 
     @Override
@@ -175,16 +174,17 @@ public class BinarySearchTree<T extends  Comparable<T>> implements IBinarySearch
     }
 
     public List<T> treeToList(){
+        List<T> treeInList = new ArrayList<>();
         if(root!=null) {
-            treeToList(root);
+            treeToList(root, treeInList);
         }
         return treeInList;
     }
-    private void treeToList(Node<T> node){
+    private void treeToList(Node<T> node,List<T> treeInList){
         if(node!=null){
-            printInOrder(node.getLeft());
+            treeToList(node.getLeft(), treeInList);
             treeInList.add(node.getValue());
-            printInOrder(node.getRight());
+            treeToList(node.getRight(), treeInList);
         }
     }
     public int getWeight(){

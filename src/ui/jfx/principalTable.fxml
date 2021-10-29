@@ -24,6 +24,11 @@
               </columns>
             </TableView>
             <JFXButton fx:id="btnImportData" layoutX="661.0" layoutY="452.0" onAction="#actImportData" text="Importar datos" />
+            <JFXButton layoutX="414.0" layoutY="24.0" onAction="#actFilterbyPoints" text="Filtrar por puntos" />
+            <JFXButton layoutX="414.0" layoutY="49.0" onAction="#actFilterbyRebounds" text="Filtrar por rebotes" />
+            <JFXButton layoutX="540.0" layoutY="24.0" onAction="#actFilterbyAssists" text="Filtrar por asistencias" />
+            <JFXButton layoutX="540.0" layoutY="49.0" onAction="#actFilterbyRobberies" text="Filtrar por robos" />
+            <JFXButton layoutX="667.0" layoutY="37.0" onAction="#actFilterbyBlocks" text="Filtrar por bloqueos" />
          </children>
       </AnchorPane>
    </center>

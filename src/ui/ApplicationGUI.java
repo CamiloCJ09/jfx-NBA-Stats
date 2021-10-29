@@ -18,9 +18,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.source.AppAdministrator;
 import model.source.Player;
+import threads.Thread1;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class ApplicationGUI {
 
@@ -30,6 +32,7 @@ public class ApplicationGUI {
 
     public ApplicationGUI() throws IOException {
         this.administrator = new AppAdministrator();
+        count = 0;
     }
 
     @FXML
@@ -139,11 +142,13 @@ public class ApplicationGUI {
         double robberies = Double.parseDouble(tfPlayerRobberies.getText());
         double blocks = Double.parseDouble(tfPlayerBlocks.getText());
         administrator.addPlayer(name,lastName,age,team,points,rebound,assists,robberies,blocks);
+        System.out.println(administrator.getArrayList().toString());
+        System.out.println(administrator.getByPoints().treeToList().toString());
         //setupTable(1);
         System.out.println("Funciono pri");
 
     }
-
+    private int count;
     @FXML
     void actConsultInfo(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./jfx/principalTable.fxml"));
@@ -157,7 +162,10 @@ public class ApplicationGUI {
         stage.setResizable(false);
         stage.setTitle("Importar jugadores");
         stage.show();
+
         tvPrincipalTable.refresh();
+        setupTable(1, administrator.getArrayList());
+        count++;
     }
 
     @FXML
@@ -180,19 +188,50 @@ public class ApplicationGUI {
         if(fileToSave != null){
             String url = fileToSave.toPath().toString();
             administrator.importPlayers(url);
-            setupTable(1);
+            setupTable(1,administrator.getArrayList());
         }else{
             System.out.println("No funciona rey");
         }
     }
+    @FXML
+    void actFilterbyAssists(ActionEvent event) throws IOException {
+        Thread1 thread1 = new Thread1(administrator.getByAssits(), administrator.getArrayList(), 3);
+        thread1.run();
+        administrator.setByAssits(thread1.getOthers());
+        System.out.println(administrator.getByAssits().printInOrder());
+        System.out.println(administrator.getByAssits().getRollingFactor());
+        setupTable(1, administrator.getByAssits().treeToList());
+    }
 
-    public void setupTable(int stat) throws IOException {
+    @FXML
+    void actFilterbyBlocks(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actFilterbyPoints(ActionEvent event) throws IOException {
+        Thread1 thread1 = new Thread1(administrator.getByPoints(), administrator.getArrayList());
+        thread1.run();
+        administrator.setByPoints(thread1.getByPoints());
+        //System.out.println(administrator.getByPoints().treeToList().toString());
+        setupTable(1, administrator.getByPoints().treeToList());
+    }
+
+    @FXML
+    void actFilterbyRebounds(ActionEvent event) {
+
+    }
+
+    @FXML
+    void actFilterbyRobberies(ActionEvent event) {
+
+    }
+
+    public void setupTable(int stat, List<Player> list) throws IOException {
         tvPrincipalTable.refresh();
         //players = tvPrincipalTable.getItems();
-        players = FXCollections.observableArrayList(administrator.getByPoints().treeToList());
-        for(Player a: players){
-            System.out.println(a.getName());
-        }
+        players = FXCollections.observableArrayList(list);
+
         //tvPrincipalTable.getItems().addAll(players);
         tcPlayerName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tcPlayerLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -208,6 +247,8 @@ public class ApplicationGUI {
     }
 
 
-    public BorderPane getBorderpane(){return initialPane;}
+    public BorderPane getBorderpane(){
+        //List<Player> aux = tvPrincipalTable.getItems();
+        return initialPane;}
 
 }
