@@ -199,27 +199,20 @@ public class ApplicationGUI {
             String url = fileToSave.toPath().toString();
             administrator.importPlayers(url);
             setupTable(1,administrator.getArrayList());
-            Thread1 thread1 = new Thread1(administrator.getByPoints(), administrator.getArrayList());
-            Thread1 thread2 = new Thread1(administrator.getByRebounds(), administrator.getArrayList(),2);
-            Thread1 thread3 = new Thread1(administrator.getByAssits(), administrator.getArrayList(), 3);
-            Thread1 thread4 = new Thread1(administrator.getByRobberies(), administrator.getArrayList(),4);
-            Thread1 thread5 = new Thread1(administrator.getByBlocks(), administrator.getArrayList(),5);
-            thread1.run();
-            thread2.run();
-            thread3.run();
-            thread4.run();
-            thread5.run();
-            administrator.setByPoints(thread1.getByPoints());
-            administrator.setByRebounds(thread2.getOthers());
-            administrator.setByAssits(thread3.getOthers());
-            administrator.setByRobberies(thread4.getOthers());
-            administrator.setByBlocks(thread5.getOthers());
+
         }else{
             System.out.println("No funciona rey");
         }
     }
     @FXML
     void actFilterbyAssists(ActionEvent event) throws IOException {
+        if(administrator.getByAssits().isEmpty()){
+            System.out.println("Lo crea");
+            Thread1 thread3 = new Thread1(administrator.getByAssits(), administrator.getArrayList(), 3);
+            thread3.run();
+            administrator.setByAssits(thread3.getOthers());
+        }
+
         playersFiltred = new ArrayList<>();
         int upper = 0;
         int lower =0;
@@ -227,60 +220,155 @@ public class ApplicationGUI {
         if (inputs != null) {
             lower = Integer.parseInt(inputs[0]);
             upper = Integer.parseInt(inputs[1]);
+
            for (int i = lower; i <=upper ; i++) {
                Node<Player, Double> temp = administrator.getByAssits().search((double) i);
                if (temp != null) {
                    playersFiltred.add(temp.getValue());
                }
-               setupTable(1, playersFiltred);
+
            }
 
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("¡¡Informacion muy importante!!");
-            alert.setHeaderText(null);
-            alert.setContentText("Si desea aplicar un nuevo filtro debe remover el que ya se aplico pulsando el boton :)");
+            setupTable(1, playersFiltred);
 
-            alert.showAndWait();
+
         }
      }
 
     @FXML
-    void actFilterbyBlocks(ActionEvent event) {
+    void actFilterbyBlocks(ActionEvent event) throws IOException {
+        if(administrator.getByBlocks().isEmpty()){
+            System.out.println("Lo crea");
+            Thread1 thread5 = new Thread1(administrator.getByBlocks(), administrator.getArrayList(),5);
+            thread5.run();
+            administrator.setByBlocks(thread5.getOthers());
+        }
         playersFiltred = new ArrayList<>();
+
         int upper = 0;
         int lower =0;
         String [] inputs = rangeInput();
+
+        if (inputs != null) {
+            lower = Integer.parseInt(inputs[0]);
+            upper = Integer.parseInt(inputs[1]);
+
+            for (int i = lower; i <=upper ; i++) {
+                Node<Player, Double> temp = administrator.getByBlocks().search((double) i);
+                if (temp != null) {
+                    playersFiltred.add(temp.getValue());
+                }
+
+            }
+
+            setupTable(1, playersFiltred);
+
+
+        }
 
     }
 
     @FXML
     void actFilterbyPoints(ActionEvent event) throws IOException {
+        if(administrator.getByPoints().isEmpty()){
+            System.out.println("Lo crea");
+            Thread1 thread1 = new Thread1(administrator.getByPoints(), administrator.getArrayList());
+            thread1.run();
+            administrator.setByPoints(thread1.getByPoints());
+        }
         playersFiltred = new ArrayList<>();
+
         int upper = 0;
         int lower =0;
         String [] inputs = rangeInput();
+
+        if (inputs != null) {
+            lower = Integer.parseInt(inputs[0]);
+            upper = Integer.parseInt(inputs[1]);
+
+            for (int i = lower; i <=upper ; i++) {
+                Node<Player, Double> temp = administrator.getByPoints().search((double) i);
+                if (temp != null) {
+                    playersFiltred.add(temp.getValue());
+                }
+
+            }
+
+            setupTable(1, playersFiltred);
+
+
+        }
 
     }
 
     @FXML
-    void actFilterbyRebounds(ActionEvent event) {
+    void actFilterbyRebounds(ActionEvent event) throws IOException {
+        if(administrator.getByRebounds().isEmpty()){
+            System.out.println("Lo crea");
+            Thread1 thread2 = new Thread1(administrator.getByRebounds(), administrator.getArrayList(),2);
+            thread2.run();
+            administrator.setByRebounds(thread2.getOthers());
+        }
         playersFiltred = new ArrayList<>();
+
         int upper = 0;
         int lower =0;
         String [] inputs = rangeInput();
+
+        if (inputs != null) {
+            lower = Integer.parseInt(inputs[0]);
+            upper = Integer.parseInt(inputs[1]);
+
+            for (int i = lower; i <=upper ; i++) {
+                Node<Player, Double> temp = administrator.getByRebounds().search((double) i);
+                if (temp != null) {
+                    playersFiltred.add(temp.getValue());
+                }
+
+            }
+
+            setupTable(1, playersFiltred);
+
+
+        }
 
     }
 
     @FXML
-    void actFilterbyRobberies(ActionEvent event) {
+    void actFilterbyRobberies(ActionEvent event) throws IOException {
+        if(administrator.getByRobberies().isEmpty()){
+            System.out.println("Lo crea");
+            Thread1 thread4 = new Thread1(administrator.getByRobberies(), administrator.getArrayList(),4);
+            thread4.run();
+            administrator.setByRobberies(thread4.getOthers());
+        }
         playersFiltred = new ArrayList<>();
+
         int upper = 0;
         int lower =0;
         String [] inputs = rangeInput();
+
+        if (inputs != null) {
+            lower = Integer.parseInt(inputs[0]);
+            upper = Integer.parseInt(inputs[1]);
+
+            for (int i = lower; i <=upper ; i++) {
+                Node<Player, Double> temp = administrator.getByRobberies().search((double) i);
+                if (temp != null) {
+                    playersFiltred.add(temp.getValue());
+                }
+
+            }
+
+            setupTable(1, playersFiltred);
+
+
+        }
 
     }
 
     public void setupTable(int stat, List<Player> list) throws IOException {
+        System.out.println("Vacio? "+list.isEmpty());
         tvPrincipalTable.refresh();
         //players = tvPrincipalTable.getItems();
         players = FXCollections.observableArrayList(list);
@@ -313,6 +401,16 @@ public class ApplicationGUI {
 
 
         Optional<String> result = dialog.showAndWait();
+
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("¡¡Informacion muy importante!!");
+        alert.setHeaderText(null);
+        alert.setContentText("Si desea aplicar un nuevo filtro debe remover el que ya se aplico pulsando el boton :)");
+
+        alert.showAndWait();
+
+
         //System.out.println(administrator.getByAssits().printInOrder())
         return result.map(s -> s.split(",")).orElse(null);
 

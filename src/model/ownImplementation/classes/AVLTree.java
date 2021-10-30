@@ -27,19 +27,19 @@ public class AVLTree<T, K extends Comparable<K>>implements IBinarySearchTree<T,K
 
     public boolean isBalanced(Node<T,K> root){
         if(root.getRight() != null && root.getLeft() !=null){
-            //System.out.println("No es hoja");
+           // System.out.println("No es hoja");
             rollingFactor = getHeight(root.getRight()) - getHeight(root.getLeft());
             return getHeight(root.getRight()) - getHeight(root.getLeft()) <= HIGH_DIFFERENCE && getHeight(root.getRight()) - getHeight(root.getLeft()) > -2;
         }else if(root.getRight()!=null){
-            //System.out.println("Tampoco es hoja");
+           // System.out.println("Tampoco es hoja");
             rollingFactor = getHeight(root.getRight());
             return getHeight(root.getRight()) <=HIGH_DIFFERENCE && getHeight(root.getRight())> -2;
         } else if(root.getLeft()!=null){
-            //System.out.println("Sigue sin ser hoja");
+           // System.out.println("Sigue sin ser hoja");
             rollingFactor = -getHeight(root.getLeft());
             return -getHeight(root.getLeft()) <=HIGH_DIFFERENCE && -getHeight(root.getLeft())> -2;
         }else{
-            //System.out.println("Es hoja");
+           // System.out.println("Es hoja");
             return true;
         }
 
@@ -50,18 +50,18 @@ public class AVLTree<T, K extends Comparable<K>>implements IBinarySearchTree<T,K
     public void balance(Node<T,K> root){
         if(!isBalanced(root)){
             if(rollingFactor>1){
-                //System.out.println("Cargado a la derecha");
+               // System.out.println("Cargado a la derecha");
                 if (getRollingFactor(root.getRight()) < 0) {
-                    ////System.out.println("Se rota doble izquierda");
+                   // System.out.println("Se rota doble izquierda");
                     rigthRotate(root.getRight());
                 }else{
-                    //.out.println("se rota simple derecha");
+                 //   System.out.println("se rota simple derecha");
                     leftRotate(root);
                 }
             }else{
-                //System.out.println("Cargado a la Izquierda");
+              //  System.out.println("Cargado a la Izquierda");
                 if (getRollingFactor(root.getLeft()) > 0) {
-                    //System.out.println("Se rota doble derecha");
+                    System.out.println("Se rota doble derecha");
                     leftRotate(root.getLeft());
                 }else{
                     //System.out.println("se rota simple derecha");

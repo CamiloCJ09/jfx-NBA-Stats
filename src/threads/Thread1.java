@@ -31,10 +31,10 @@ public class Thread1 extends Thread{
                // System.out.println("Aca");
                 a.changePrefStat(statistic);
                 switch (statistic){
-                    case 2: others.addNode(a,a.getRebounds());
+                    case 2:   System.out.println("Acaaaaaa");
+                        others.addNode(a,a.getRebounds());
                         break;
                     case 3:
-                        System.out.println("Acaaaaaa");
                         others.addNode(a,a.getAssists());
                         break;
                     case 4:others.addNode(a,a.getRobberies());

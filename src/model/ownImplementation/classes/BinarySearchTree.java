@@ -20,10 +20,10 @@ public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearc
 
     @Override
     public void addNode(T element, K key) {
-        System.out.println("Está agregando a "+element.toString());
+      //  System.out.println("Está agregando a "+element.toString());
         Node<T,K> newNode = new Node<>(element,key);
         if(root == null){
-            System.out.println("Entra root");
+          //  System.out.println("Entra root");
             root = newNode;
         }else{
             addNode(root,newNode);
