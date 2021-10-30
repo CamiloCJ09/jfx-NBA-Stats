@@ -32,13 +32,15 @@ public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearc
     }
 
     private void addNode(Node<T,K> root, Node<T,K> newNode){
-        if(newNode.getKey().compareTo(root.getKey())<=0){
+        if(newNode.getKey().compareTo(root.getKey())<0){
             if(root.getLeft()==null){
                 root.setLeft(newNode);
                 newNode.setParent(root);
             }else{
                 addNode(root.getLeft(),newNode);
             }
+        }else if(newNode.getKey().compareTo(root.getKey())==0){
+            root.getValue().add(newNode.getValue().get(0));
         }else{
             if(root.getRight()==null){
                 root.setRight(newNode);
@@ -187,7 +189,7 @@ public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearc
             printInOrder(node.getRight());
         }
     }
-
+    /*
     public List<T> treeToList(){
         List<T> treeInList = new ArrayList<>();
         if(root!=null) {
@@ -195,6 +197,7 @@ public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearc
         }
         return treeInList;
     }
+
     private void treeToList(Node<T,K> node,List<T> treeInList){
         if(node!=null){
             treeToList(node.getLeft(), treeInList);
@@ -203,6 +206,8 @@ public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearc
 
         }
     }
+
+     */
     public int getWeight(){
         weight = 0;
         if(root!=null) {

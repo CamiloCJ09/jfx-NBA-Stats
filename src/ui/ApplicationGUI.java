@@ -150,8 +150,8 @@ public class ApplicationGUI {
         double robberies = Double.parseDouble(tfPlayerRobberies.getText());
         double blocks = Double.parseDouble(tfPlayerBlocks.getText());
         administrator.addPlayer(name,lastName,age,team,points,rebound,assists,robberies,blocks);
-        System.out.println(administrator.getArrayList().toString());
-        System.out.println(administrator.getByPoints().treeToList().toString());
+        //System.out.println(administrator.getArrayList().toString());
+        //System.out.println(administrator.getByPoints().treeToList().toString());
         //setupTable(1);
         System.out.println("Funciono pri");
 
@@ -224,7 +224,7 @@ public class ApplicationGUI {
            for (int i = lower; i <=upper ; i++) {
                Node<Player, Double> temp = administrator.getByAssits().search((double) i);
                if (temp != null) {
-                   playersFiltred.add(temp.getValue());
+                   playersFiltred.addAll(temp.getValue());
                }
 
            }
@@ -256,7 +256,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByBlocks().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
@@ -289,7 +289,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByPoints().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
@@ -322,7 +322,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByRebounds().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
@@ -355,7 +355,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByRobberies().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
