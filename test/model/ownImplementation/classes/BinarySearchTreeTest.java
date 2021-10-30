@@ -13,35 +13,34 @@ class BinarySearchTreeTest {
     }
 
     public void setup2() {
-        /*
-        tree = new BinarySearchTree<>();
-        tree.addNode(3);
-        tree.addNode(5);
 
-         */
+        tree = new BinarySearchTree<>();
+        tree.addNode(3,3);
+        tree.addNode(5,5);
+
+
     }
 
     public void setup3() {
-        /*
-        tree = new BinarySearchTree<>();
-        tree.addNode(0,3);
-        tree.addNode(0,5);
-        tree.addNode(0,61);
-        tree.addNode(0,2);
-        tree.addNode(0,7);
-        tree.addNode(0,8);
 
-         */
+        tree = new BinarySearchTree<>();
+        tree.addNode(3,3);
+        tree.addNode(5,5);
+        tree.addNode(61,61);
+        tree.addNode(2,2);
+        tree.addNode(7,7);
+        tree.addNode(8,8);
+
+
     }
     @Test
     public void addNode1(){
-        /*
         setup1();
-        tree.addNode(3);
-        tree.addNode(5);
+        tree.addNode(3,3);
+        tree.addNode(3,5);
         assertFalse(tree.isEmpty());
 
-         */
+
     }
     @Test
     public void delete(){
