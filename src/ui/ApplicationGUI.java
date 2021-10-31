@@ -207,6 +207,11 @@ public class ApplicationGUI {
     private List<Player> playersFiltred;
 
     @FXML
+    void actDelete2(ActionEvent event) {
+
+    }
+
+    @FXML
     private void actDelateDelatePane(ActionEvent event) {
         String name = tfNameDelatePane.getText();
         String lastName = tfLastNameDelatePlane.getText();
