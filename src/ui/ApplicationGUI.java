@@ -71,6 +71,21 @@ public class ApplicationGUI {
     private TableColumn<Player, Double> tcPlayerBlocks;
 
     @FXML
+    private TableView<Player> tvPlayerSelected;
+
+    @FXML
+    private TableColumn<Player, String> tc_namePlayerSelected;
+
+    @FXML
+    private TableColumn<Player, String> tc_lastnamePlayerSelected;
+
+    @FXML
+    private TableColumn<Player, Double> tc_agePlayerSelected;
+
+    @FXML
+    private TableColumn<Player, String> tc_teamPlayerSelected;
+
+    @FXML
     private JFXTextField tfPlayerName;
 
     @FXML
@@ -238,6 +253,20 @@ public class ApplicationGUI {
                     slPoints.setValue(playerToEdit.getPoints());
                     slRebouns.setValue(playerToEdit.getRebounds());
                     slRobberies.setValue(playerToEdit.getRobberies());
+
+
+                    ObservableList<Player> playertoList = FXCollections.observableArrayList(playerToEdit);
+                    tc_namePlayerSelected.setCellValueFactory(new PropertyValueFactory<>("name"));
+                    tc_lastnamePlayerSelected.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+                    tc_agePlayerSelected.setCellValueFactory(new PropertyValueFactory<>("age"));
+                    tc_teamPlayerSelected.setCellValueFactory( new PropertyValueFactory<>("team"));
+
+                    tvPlayerSelected.setItems(playertoList);
+                    tvPlayerSelected.setEditable(true);
+                   // tvPlayerSelected.refresh();
+
+
+
                 }else{
                     alert.setTitle("Lo sentimos");
                     alert.setHeaderText(null);

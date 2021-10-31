@@ -25,12 +25,12 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Label>
-            <TableView fx:id="tvPlayerSelected" layoutX="99.0" layoutY="85.0" prefHeight="81.0" prefWidth="390.0">
+            <TableView fx:id="tvPlayerSelected" layoutX="38.0" layoutY="85.0" prefHeight="81.0" prefWidth="513.0">
               <columns>
-                <TableColumn fx:id="tc_namePlayerSelected" prefWidth="100.0" text="Name" />
-                <TableColumn fx:id="tc_lastnamePlayerSelected" prefWidth="99.0" text="LastName" />
-                  <TableColumn fx:id="tc_agePlayerSelected" prefWidth="90.0" text="Age" />
-                  <TableColumn fx:id="tc_teamPlayerSelected" prefWidth="100.0" text="Team" />
+                <TableColumn fx:id="tc_namePlayerSelected" prefWidth="118.0" text="Name" />
+                <TableColumn fx:id="tc_lastnamePlayerSelected" prefWidth="121.0" text="LastName" />
+                  <TableColumn fx:id="tc_agePlayerSelected" prefWidth="104.0" text="Age" />
+                  <TableColumn fx:id="tc_teamPlayerSelected" prefWidth="169.0" text="Team" />
               </columns>
             </TableView>
             <JFXButton buttonType="RAISED" layoutX="424.0" layoutY="25.0" ripplerFill="#0bc653" text="Terminado" />
