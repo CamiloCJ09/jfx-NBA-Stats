@@ -1,6 +1,7 @@
 package ui;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,10 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
@@ -120,6 +118,25 @@ public class ApplicationGUI {
     @FXML
     private JFXButton btnImportData;
 
+    @FXML
+    private Label lbNamePlayerToEdit;
+
+    @FXML
+    private JFXSlider slPoints;
+
+    @FXML
+    private JFXSlider slRebouns;
+
+    @FXML
+    private JFXSlider slAssists;
+
+    @FXML
+    private JFXSlider slRobberies;
+
+    @FXML
+    private JFXSlider slBlocks;
+
+
     private List<Player> playersFiltred;
 
     @FXML
@@ -185,9 +202,9 @@ public class ApplicationGUI {
     }
 
     @FXML
-    void actEditPlayer(ActionEvent event) {
+    void actEditPlayer(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
         if(administrator.getArrayList().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Lo sentimos");
             alert.setHeaderText(null);
             alert.setContentText("No hay datos cargados, por favor agregue un jugador o importelos en el area de realizar consulta");
@@ -210,6 +227,24 @@ public class ApplicationGUI {
 
                     }
                 }
+                if(out){
+                    FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("./jfx/editPlayerPane.fxml"));
+                    fxmlLoader1.setController(this);
+                    Parent input = fxmlLoader1.load();
+                    getBorderpane().setCenter(input);
+                    lbNamePlayerToEdit.setText(result.get());
+                    slAssists.setValue(playerToEdit.getAssists());
+                    slBlocks.setValue(playerToEdit.getBlocks());
+                    slPoints.setValue(playerToEdit.getPoints());
+                    slRebouns.setValue(playerToEdit.getRebounds());
+                    slRobberies.setValue(playerToEdit.getRobberies());
+                }else{
+                    alert.setTitle("Lo sentimos");
+                    alert.setHeaderText(null);
+                    alert.setContentText("El jugador que ingresaste no está en nuestra base de datos, revise el nombre que escribió");
+                    alert.showAndWait();
+                }
+
 
             }
 
