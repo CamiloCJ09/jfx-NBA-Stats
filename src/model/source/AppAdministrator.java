@@ -49,7 +49,7 @@ public class AppAdministrator {
     public ArrayList<Integer> searchPlayer(String firstName, String lastName){
         ArrayList<Integer> index = new ArrayList<>();
         for (int i = 0; i<arrayList.size(); i++){
-            if(arrayList.get(i).getName() == firstName && arrayList.get(i).getLastName() == lastName){
+            if(arrayList.get(i).getName().equals(firstName) && arrayList.get(i).getLastName().equals(lastName)){
                 index.add(i);
             }
         }

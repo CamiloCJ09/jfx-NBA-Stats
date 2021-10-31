@@ -37,6 +37,7 @@ public class ApplicationGUI {
 
     private Player playerToEdit;
     private ObservableList<Player> players;
+    private ObservableList<Player> eliminatePlayers;
 
     public ApplicationGUI() throws IOException {
         this.administrator = new AppAdministrator();
@@ -168,46 +169,77 @@ public class ApplicationGUI {
     private JFXTextField tfInferiorLimit;
 
     @FXML
-    private JFXTextField tfNameDelatePäne;
+    private JFXTextField tfNameDelatePane;
 
     @FXML
     private JFXTextField tfLastNameDelatePlane;
 
     @FXML
-    private TableView<?> tvDelateDelatePäne;
+    private TableView<Player> tvDelateDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcNameDaletePane;
+    private TableColumn<Player, String> tcNameDaletePane;
 
     @FXML
-    private TableColumn<?, ?> tcLastNameDelatePane;
+    private TableColumn<Player, String> tcLastNameDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcAgeDelatePane;
+    private TableColumn<Player, Integer> tcAgeDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcTeamDelatePane;
+    private TableColumn<Player, String> tcTeamDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcPointsDelatePane;
+    private TableColumn<Player, Double> tcPointsDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcReboundsDelatePane;
+    private TableColumn<Player, Double> tcReboundsDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcAssistDelatePane;
+    private TableColumn<Player, Double> tcAssistDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcRobberiesDelatePane;
+    private TableColumn<Player, Double> tcRobberiesDelatePane;
 
     @FXML
-    private TableColumn<?, ?> tcBlocksDelatePane;
+    private TableColumn<Player, Double> tcBlocksDelatePane;
 
     private List<Player> playersFiltred;
 
     @FXML
-    void actDelateDelatePane(ActionEvent event) {
+    private void actDelateDelatePane(ActionEvent event) {
+        String name = tfNameDelatePane.getText();
+        String lastName = tfLastNameDelatePlane.getText();
+        if(name.equals("") || lastName.equals("")){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("¡¡Informacion muy importante!!");
+            alert.setHeaderText(null);
+            alert.setContentText("Debe llenar el campo de nombre y apellido primero");
+            alert.showAndWait();
+        }
+        ArrayList<Integer> index = administrator.searchPlayer(name,lastName);
+        System.out.println("Vacio? "+index.isEmpty());
+        ArrayList<Player> listOfAll = administrator.getArrayList();
+        ArrayList<Player> list = new ArrayList<>();
 
+        for(int i = 0; i<index.size(); i++){
+            list.add(listOfAll.get(index.get(i)));
+        }
+
+        System.out.println("Vacio? "+list.isEmpty());
+        eliminatePlayers = FXCollections.observableArrayList(list);
+
+        tcNameDaletePane.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tcLastNameDelatePane.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        tcAgeDelatePane.setCellValueFactory(new PropertyValueFactory<>("age"));
+        tcTeamDelatePane.setCellValueFactory(new PropertyValueFactory<>("team"));
+        tcPointsDelatePane.setCellValueFactory(new PropertyValueFactory<>("points"));
+        tcReboundsDelatePane.setCellValueFactory(new PropertyValueFactory<>("rebounds"));
+        tcAssistDelatePane.setCellValueFactory(new PropertyValueFactory<>("assists"));
+        tcRobberiesDelatePane.setCellValueFactory(new PropertyValueFactory<>("robberies"));
+        tcBlocksDelatePane.setCellValueFactory(new PropertyValueFactory<>("blocks"));
+        tvDelateDelatePane.setItems(eliminatePlayers);
+        tvDelateDelatePane.refresh();
     }
 
     @FXML
@@ -268,8 +300,18 @@ public class ApplicationGUI {
     }
 
     @FXML
-    void actDeletePlayer(ActionEvent event) {
+    void actDeletePlayer(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./jfx/deletePlayersPane.fxml"));
+        fxmlLoader.setController(this);
+        Parent window = fxmlLoader.load();
 
+        Scene scene = new Scene(window);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Eliminar jugador");
+        stage.show();
     }
 
     @FXML
@@ -699,10 +741,8 @@ public class ApplicationGUI {
     public void setupTable(int stat, List<Player> list) throws IOException {
         System.out.println("Vacio? "+list.isEmpty());
         tvPrincipalTable.refresh();
-        //players = tvPrincipalTable.getItems();
         players = FXCollections.observableArrayList(list);
 
-        //tvPrincipalTable.getItems().addAll(players);
         tcPlayerName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tcPlayerLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         tcPlayerAge.setCellValueFactory(new PropertyValueFactory<>("age"));
