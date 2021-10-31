@@ -40,7 +40,8 @@ public class AppAdministrator {
         }
     }
 
-    public void addPlayer(String name, String lastName, int age, String team, double points, double rebounds, double assists, double robberies, double blocks){
+    public void addPlayer(String name, String lastName, int age, String team, double points,
+                          double rebounds, double assists, double robberies, double blocks){
         Player p = new Player(name, lastName, age, team, points, rebounds, assists, robberies,blocks);
         arrayList.add(p);
     }
