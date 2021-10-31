@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -214,6 +215,27 @@ public class ApplicationGUI {
 
     @FXML
     void actDeletePlayer(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteElement(MouseEvent event) throws IOException {
+        int index = tvPrincipalTable.getSelectionModel().getSelectedIndex();
+        if(index>=0){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmacion");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Quiere eliminar al jugador "+tvPrincipalTable.getItems().get(index).getName()+" ?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                administrator.getArrayList().remove(tvPrincipalTable.getItems().get(index));
+                setupTable(1,administrator.getArrayList());
+            }
+            System.out.println(tvPrincipalTable.getItems().get(index).toString());
+
+
+        }
 
     }
 

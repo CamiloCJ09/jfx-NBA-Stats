@@ -10,7 +10,7 @@
    <center>
       <AnchorPane prefHeight="495.0" prefWidth="848.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView fx:id="tvPrincipalTable" layoutX="76.0" layoutY="112.0" prefHeight="325.0" prefWidth="676.0">
+            <TableView fx:id="tvPrincipalTable" layoutX="76.0" layoutY="112.0" onMouseClicked="#deleteElement" prefHeight="325.0" prefWidth="676.0">
               <columns>
                 <TableColumn fx:id="tcPlayerName" prefWidth="95.0" text="Name" />
                 <TableColumn fx:id="tcPlayerLastName" text="LastName" />
