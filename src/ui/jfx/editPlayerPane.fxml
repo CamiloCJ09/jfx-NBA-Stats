@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRippler?>
+<?import com.jfoenix.controls.JFXSlider?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -9,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="400.0" prefWidth="666.0" BorderPane.alignment="CENTER">
          <children>
             <Label fx:id="lbNamePlayerToEdit" layoutX="259.0" layoutY="27.0" text="nn">
                <font>
@@ -23,15 +26,30 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Label>
-            <TableView layoutX="44.0" layoutY="118.0" prefHeight="200.0" prefWidth="390.0">
+            <TableView layoutX="99.0" layoutY="85.0" prefHeight="81.0" prefWidth="390.0">
               <columns>
-                <TableColumn prefWidth="100.0" text="C1" />
-                <TableColumn prefWidth="99.0" text="C2" />
-                  <TableColumn prefWidth="90.0" text="Column X" />
-                  <TableColumn prefWidth="100.0" text="Column X" />
+                <TableColumn prefWidth="100.0" text="Name" />
+                <TableColumn prefWidth="99.0" text="LastName" />
+                  <TableColumn prefWidth="90.0" text="Age" />
+                  <TableColumn prefWidth="100.0" text="Team" />
               </columns>
             </TableView>
-            <JFXButton buttonType="RAISED" layoutX="469.0" layoutY="344.0" ripplerFill="#0bc653" text="Terminado" />
+            <JFXButton buttonType="RAISED" layoutX="424.0" layoutY="25.0" ripplerFill="#0bc653" text="Terminado" />
+            <Label layoutX="32.0" layoutY="202.0" text="Points:" />
+            <Label layoutX="24.0" layoutY="244.0" text="Rebouns:" />
+            <Label layoutX="26.0" layoutY="280.0" prefHeight="16.0" prefWidth="74.0" text="Assists:" />
+            <Label layoutX="28.0" layoutY="316.0" text="Robberies:" />
+            <Label layoutX="31.0" layoutY="352.0" text="Blocks:" />
+            <JFXRippler layoutX="81.0" layoutY="227.0" />
+            <JFXSlider fx:id="slPoints" indicatorPosition="RIGHT" layoutX="86.0" layoutY="189.0" prefHeight="43.0" prefWidth="139.0">
+               <rotationAxis>
+                  <Point3D x="1.0" y="1.0" z="1.0" />
+               </rotationAxis>
+            </JFXSlider>
+            <JFXSlider fx:id="slRebouns" layoutX="92.0" layoutY="244.0" />
+            <JFXSlider fx:id="slAssists" layoutX="86.0" layoutY="280.0" />
+            <JFXSlider fx:id="slRobberies" layoutX="100.0" layoutY="316.0" />
+            <JFXSlider fx:id="slBlocks" layoutX="86.0" layoutY="352.0" />
          </children>
       </AnchorPane>
    </center>
