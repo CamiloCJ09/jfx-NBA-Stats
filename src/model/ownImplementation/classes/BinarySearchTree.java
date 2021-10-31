@@ -32,19 +32,21 @@ public class BinarySearchTree<T,K extends Comparable<K>> implements IBinarySearc
     }
 
     private void addNode(Node<T,K> root, Node<T,K> newNode){
-        if(newNode.getKey().compareTo(root.getKey())<=0){
+        if(newNode.getKey().compareTo(root.getKey())<0){
             if(root.getLeft()==null){
                 root.setLeft(newNode);
                 newNode.setParent(root);
             }else{
                 addNode(root.getLeft(),newNode);
             }
-        }else{
-            if(root.getRight()==null){
+        } else if (newNode.getKey().compareTo(root.getKey()) == 0) {
+            root.getValue().add(newNode.getValue().get(0));
+        } else {
+            if (root.getRight() == null) {
                 root.setRight(newNode);
                 newNode.setParent(root);
-            }else{
-                addNode(root.getRight(),newNode);
+            } else {
+                addNode(root.getRight(), newNode);
             }
         }
     }

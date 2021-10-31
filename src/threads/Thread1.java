@@ -14,6 +14,7 @@ public class Thread1 extends Thread{
     public Thread1(BinarySearchTree<Player,Double> byPoints, List<Player> players) {
         this.byPoints = byPoints;
         this.players = players;
+        this.statistic = 1;
     }
     public Thread1(AVLTree<Player,Double> others,List<Player> players, int statistic){
         this.others = others;
@@ -23,8 +24,21 @@ public class Thread1 extends Thread{
     public void run() {
         if(byPoints != null){
             for (Player a: players) {
-                a.changePrefStat(1);
-                byPoints.addNode(a, a.getPoints());
+
+                a.changePrefStat(statistic);
+
+                switch (statistic){
+                    case 1:byPoints.addNode(a, a.getPoints());
+                        break;
+                    case 2:byPoints.addNode(a,a.getRebounds());
+                        break;
+                    case 3:byPoints.addNode(a,a.getAssists());
+                        break;
+                    case 4:byPoints.addNode(a,a.getRobberies());
+                        break;
+                    case 5: byPoints.addNode(a, a.getBlocks());
+                        break;
+                }
             }
         }else{
             for (Player a: players) {

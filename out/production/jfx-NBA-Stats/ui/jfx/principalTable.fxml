@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="828.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <AnchorPane prefHeight="495.0" prefWidth="848.0" BorderPane.alignment="CENTER">
          <children>
@@ -30,6 +31,8 @@
             <JFXButton buttonType="RAISED" layoutX="507.0" layoutY="63.0" onAction="#actFilterbyRobberies" ripplerFill="#d08b0a" text="Filtrar por robos" />
             <JFXButton buttonType="RAISED" layoutX="646.0" layoutY="44.0" onAction="#actFilterbyBlocks" ripplerFill="#d3910d" text="Filtrar por bloqueos" />
             <JFXButton buttonType="RAISED" layoutX="101.0" layoutY="37.0" onAction="#removeFilter" ripplerFill="#c32020" text="Remover filtros" />
+            <Label layoutX="34.0" layoutY="456.0" text="Tiepo de filtro (En nano segundos):" />
+            <Label fx:id="timeInNano" layoutX="225.0" layoutY="456.0" />
          </children>
       </AnchorPane>
    </center>
