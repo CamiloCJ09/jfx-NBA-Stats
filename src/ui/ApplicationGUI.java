@@ -167,9 +167,48 @@ public class ApplicationGUI {
     @FXML
     private JFXTextField tfInferiorLimit;
 
+    @FXML
+    private JFXTextField tfNameDelatePäne;
 
+    @FXML
+    private JFXTextField tfLastNameDelatePlane;
+
+    @FXML
+    private TableView<?> tvDelateDelatePäne;
+
+    @FXML
+    private TableColumn<?, ?> tcNameDaletePane;
+
+    @FXML
+    private TableColumn<?, ?> tcLastNameDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcAgeDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcTeamDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcPointsDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcReboundsDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcAssistDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcRobberiesDelatePane;
+
+    @FXML
+    private TableColumn<?, ?> tcBlocksDelatePane;
 
     private List<Player> playersFiltred;
+
+    @FXML
+    void actDelateDelatePane(ActionEvent event) {
+
+    }
 
     @FXML
     void actAddPlayer(ActionEvent event) throws IOException {
