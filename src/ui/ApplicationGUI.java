@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 import model.ownImplementation.classes.Node;
 import model.source.AppAdministrator;
 import model.source.Player;
@@ -80,7 +81,7 @@ public class ApplicationGUI {
     private TableColumn<Player, String> tc_lastnamePlayerSelected;
 
     @FXML
-    private TableColumn<Player, Double> tc_agePlayerSelected;
+    private TableColumn<Player, Integer> tc_agePlayerSelected;
 
     @FXML
     private TableColumn<Player, String> tc_teamPlayerSelected;
@@ -262,8 +263,58 @@ public class ApplicationGUI {
                     tc_teamPlayerSelected.setCellValueFactory( new PropertyValueFactory<>("team"));
 
                     tvPlayerSelected.setItems(playertoList);
+
+
+                    tc_namePlayerSelected.setCellFactory(TextFieldTableCell.forTableColumn());
+                    tc_lastnamePlayerSelected.setCellFactory(TextFieldTableCell.forTableColumn());
+                    tc_agePlayerSelected.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+                        @Override
+                        public String toString(Integer object) {
+                            return object.toString();
+                        }
+
+                        @Override
+                        public Integer fromString(String string) {
+                            return Integer.parseInt(string);
+                        }
+                    }));
+                    tc_teamPlayerSelected.setCellFactory(TextFieldTableCell.forTableColumn());
+
+                    tc_namePlayerSelected.setOnEditCommit(data ->{
+                       // int saveIndex;
+                        System.out.println("Antiguo nombre: "+data.getOldValue());
+                        playerToEdit.setName(data.getNewValue());
+                        System.out.println("Nuevo nombre: "+playerToEdit.getName());
+
+                    });
+
+                    tc_lastnamePlayerSelected.setOnEditCommit(data ->{
+                        // int saveIndex;
+                        System.out.println("Antiguo apellido: "+data.getOldValue());
+                        playerToEdit.setLastName(data.getNewValue());
+                        System.out.println("Nuevo apellido: "+playerToEdit.getLastName());
+
+                    });
+
+                    tc_agePlayerSelected.setOnEditCommit(data ->{
+                        // int saveIndex;
+                        System.out.println("Antigua edad: "+data.getOldValue());
+                        playerToEdit.setAge(data.getNewValue());
+                        System.out.println("Nueva edad: "+playerToEdit.getAge());
+
+                    });
+
+                    tc_teamPlayerSelected.setOnEditCommit(data ->{
+                        // int saveIndex;
+                        System.out.println("Antiguo team: "+data.getOldValue());
+                        playerToEdit.setTeam(data.getNewValue());
+                        System.out.println("Nuevo team: "+playerToEdit.getTeam());
+
+                    });
+
                     tvPlayerSelected.setEditable(true);
-                   // tvPlayerSelected.refresh();
+
+
 
 
 
@@ -280,6 +331,44 @@ public class ApplicationGUI {
         }
 
     }
+
+    @FXML
+    void saveChanges(ActionEvent event) throws IOException {
+        /*
+        playerToEdit.setPoints(slPoints.getValue());
+        playerToEdit.setAssists(slAssists.getValue());
+        playerToEdit.setBlocks(slBlocks.getValue());
+        playerToEdit.setRobberies(slRobberies.getValue());
+        playerToEdit.setRebounds(slRebouns.getValue());
+
+         */
+
+        int index = administrator.getArrayList().indexOf(playerToEdit);
+
+        administrator.getArrayList().get(index).setName(playerToEdit.getName());
+        administrator.getArrayList().get(index).setLastName(playerToEdit.getLastName());
+        administrator.getArrayList().get(index).setAge(playerToEdit.getAge());
+        administrator.getArrayList().get(index).setTeam(playerToEdit.getTeam());
+        administrator.getArrayList().get(index).setPoints(slPoints.getValue());
+        administrator.getArrayList().get(index).setAssists(slAssists.getValue());
+        administrator.getArrayList().get(index).setBlocks(slBlocks.getValue());
+        administrator.getArrayList().get(index).setRobberies(slRobberies.getValue());
+        administrator.getArrayList().get(index).setRebounds(slRebouns.getValue());
+
+        FXMLLoader fxmlLoader1 = new FXMLLoader(getClass().getResource("./jfx/principalPane.fxml"));
+        fxmlLoader1.setController(this);
+        Parent input = fxmlLoader1.load();
+        getBorderpane().setCenter(input);
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Cambios Guardados");
+        alert.setHeaderText(null);
+        alert.setContentText("Cambios guardados satisfactoriamente");
+        alert.showAndWait();
+
+
+    }
+
 
     @FXML
     void actImportData(ActionEvent event) throws IOException {
