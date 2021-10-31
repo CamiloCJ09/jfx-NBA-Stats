@@ -18,6 +18,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
+import model.ownImplementation.classes.BinarySearchTree;
 import model.ownImplementation.classes.Node;
 import model.source.AppAdministrator;
 import model.source.Player;
@@ -114,6 +115,9 @@ public class ApplicationGUI {
     private JFXTextField tfPlayerBlocks;
 
     @FXML
+    private Label timeInNano;
+
+    @FXML
     private BorderPane initialPane;
 
     @FXML
@@ -151,6 +155,17 @@ public class ApplicationGUI {
 
     @FXML
     private JFXSlider slBlocks;
+
+
+    @FXML
+    private JFXTextField tfOtherFilter;
+
+    @FXML
+    private JFXTextField tfSuperiorLimit;
+
+    @FXML
+    private JFXTextField tfInferiorLimit;
+
 
 
     private List<Player> playersFiltred;
@@ -201,7 +216,7 @@ public class ApplicationGUI {
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-       /// stage.setResizable(false);
+        stage.setResizable(false);
         stage.setTitle("Importar jugadores");
         stage.show();
 
@@ -388,6 +403,7 @@ public class ApplicationGUI {
     }
     @FXML
     void actFilterbyAssists(ActionEvent event) throws IOException {
+        double time1 = System.currentTimeMillis();
         if(administrator.getByAssits().isEmpty()){
             System.out.println("Lo crea");
             Thread1 thread3 = new Thread1(administrator.getByAssits(), administrator.getArrayList(), 3);
@@ -410,7 +426,9 @@ public class ApplicationGUI {
                }
 
            }
-
+            double time2 = System.currentTimeMillis();
+            double oficialTime = time2-time1;
+            timeInNano.setText(String.valueOf(oficialTime));
             setupTable(1, playersFiltred);
 
 
@@ -419,6 +437,7 @@ public class ApplicationGUI {
 
     @FXML
     void actFilterbyBlocks(ActionEvent event) throws IOException {
+        double time1 = System.currentTimeMillis();
         if(administrator.getByBlocks().isEmpty()){
             System.out.println("Lo crea");
             Thread1 thread5 = new Thread1(administrator.getByBlocks(), administrator.getArrayList(),5);
@@ -442,7 +461,9 @@ public class ApplicationGUI {
                 }
 
             }
-
+            double time2 = System.currentTimeMillis();
+            double oficialTime = time2-time1;
+            timeInNano.setText(String.valueOf(oficialTime));
             setupTable(1, playersFiltred);
 
 
@@ -452,6 +473,7 @@ public class ApplicationGUI {
 
     @FXML
     void actFilterbyPoints(ActionEvent event) throws IOException {
+        double time1 = System.currentTimeMillis();
         if(administrator.getByPoints().isEmpty()){
             System.out.println("Lo crea");
             Thread1 thread1 = new Thread1(administrator.getByPoints(), administrator.getArrayList());
@@ -473,23 +495,80 @@ public class ApplicationGUI {
                 if (temp != null) {
                     playersFiltred.addAll(temp.getValue());
                 }
-
             }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./jfx/otherFilterPane.fxml"));
+            fxmlLoader.setController(this);
+            Parent window = fxmlLoader.load();
 
+            Scene scene = new Scene(window);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setTitle("Filtro sobre filtro");
+            stage.show();
+
+            double time2 = System.currentTimeMillis();
+            double oficialTime = time2-time1;
+            timeInNano.setText(String.valueOf(oficialTime));
             setupTable(1, playersFiltred);
-
 
         }
 
     }
 
     @FXML
+    void actFilterOverFilter(ActionEvent event) throws IOException {
+        int otherFilter = Integer.parseInt(tfOtherFilter.getText());
+        Stage stage = (Stage) tfOtherFilter.getScene().getWindow();
+        if(otherFilter != 1){
+            int statistic = Integer.parseInt(tfOtherFilter.getText());
+            administrator.setByPoints(new BinarySearchTree<>());
+            Thread1 thread1 = new Thread1(administrator.getByPoints(), playersFiltred);
+            thread1.setStatistic(statistic);
+            thread1.run();
+            administrator.setByPoints(thread1.getByPoints());
+
+            int upper = 0;
+            int lower =0;
+            String [] inputs = new String[2];
+            inputs[0] = tfInferiorLimit.getText();
+            inputs[1] = tfSuperiorLimit.getText();
+            playersFiltred = new ArrayList<>();
+
+            System.out.println("Antes de entrar" + inputs[0]+ " "+inputs[1]);
+            if (inputs != null) {
+                System.out.println("Luego de entrar");
+                lower = Integer.parseInt(inputs[1]);
+                upper = Integer.parseInt(inputs[0]);
+
+                System.out.println("Antes del for");
+
+                for (int i = lower; i <= upper; i++) {
+                    //System.out.println("Entra al for");
+                    Node<Player, Double> temp = administrator.getByPoints().search((double) i);
+                    //System.out.println("Nodo: "+temp.getValue());
+                    if (temp != null) {
+                        playersFiltred.addAll(temp.getValue());
+                    }
+                }
+                setupTable(1, playersFiltred);
+                stage.close();
+            }
+        }else{
+            stage.close();
+        }
+    }
+
+    @FXML
     void actFilterbyRebounds(ActionEvent event) throws IOException {
+        double time1 = System.currentTimeMillis();
         if(administrator.getByRebounds().isEmpty()){
             System.out.println("Lo crea");
             Thread1 thread2 = new Thread1(administrator.getByRebounds(), administrator.getArrayList(),2);
             thread2.run();
             administrator.setByRebounds(thread2.getOthers());
+
         }
         playersFiltred = new ArrayList<>();
 
@@ -509,6 +588,9 @@ public class ApplicationGUI {
 
             }
 
+            double time2 = System.currentTimeMillis();
+            double oficialTime = time2-time1;
+            timeInNano.setText(String.valueOf(oficialTime));
             setupTable(1, playersFiltred);
 
 
@@ -518,6 +600,7 @@ public class ApplicationGUI {
 
     @FXML
     void actFilterbyRobberies(ActionEvent event) throws IOException {
+        double time1 = System.currentTimeMillis();
         if(administrator.getByRobberies().isEmpty()){
             System.out.println("Lo crea");
             Thread1 thread4 = new Thread1(administrator.getByRobberies(), administrator.getArrayList(),4);
@@ -541,7 +624,9 @@ public class ApplicationGUI {
                 }
 
             }
-
+            double time2 = System.currentTimeMillis();
+            double oficialTime = time2-time1;
+            timeInNano.setText(String.valueOf(oficialTime));
             setupTable(1, playersFiltred);
 
 
