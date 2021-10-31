@@ -46,6 +46,16 @@ public class AppAdministrator {
         arrayList.add(p);
     }
 
+    public ArrayList<Integer> searchPlayer(String firstName, String lastName){
+        ArrayList<Integer> index = new ArrayList<>();
+        for (int i = 0; i<arrayList.size(); i++){
+            if(arrayList.get(i).getName() == firstName && arrayList.get(i).getLastName() == lastName){
+                index.add(i);
+            }
+        }
+        return index;
+    }
+
     public ArrayList<Player> getArrayList() {
         return arrayList;
     }
