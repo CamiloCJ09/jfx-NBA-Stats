@@ -61,7 +61,7 @@ public class AVLTree<T, K extends Comparable<K>>implements IBinarySearchTree<T,K
             }else{
               //  System.out.println("Cargado a la Izquierda");
                 if (getRollingFactor(root.getLeft()) > 0) {
-                    System.out.println("Se rota doble derecha");
+                 //   System.out.println("Se rota doble derecha");
                     leftRotate(root.getLeft());
                 }else{
                     //System.out.println("se rota simple derecha");
@@ -74,7 +74,7 @@ public class AVLTree<T, K extends Comparable<K>>implements IBinarySearchTree<T,K
         }
     }
 
-
+    /*
     public List<T> treeToList(){
         List<T> treeInList = new ArrayList<>();
         if(root!=null) {
@@ -90,6 +90,8 @@ public class AVLTree<T, K extends Comparable<K>>implements IBinarySearchTree<T,K
         }
     }
 
+     */
+
 
     @Override
     public void addNode(T element, K key) {
@@ -103,13 +105,15 @@ public class AVLTree<T, K extends Comparable<K>>implements IBinarySearchTree<T,K
     }
 
     private void addNode(Node<T,K> root, Node<T,K> newNode){
-        if(newNode.getKey().compareTo(root.getKey())<=0){
+        if(newNode.getKey().compareTo(root.getKey())<0){
             if(root.getLeft()==null){
                 root.setLeft(newNode);
                 newNode.setParent(root);
             }else{
                 addNode(root.getLeft(),newNode);
             }
+        }else if(newNode.getKey().compareTo(root.getKey())==0){
+            root.getValue().add(newNode.getValue().get(0));
         }else{
             if(root.getRight()==null){
                 root.setRight(newNode);

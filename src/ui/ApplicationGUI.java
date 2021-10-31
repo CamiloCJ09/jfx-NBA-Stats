@@ -14,6 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -26,14 +27,14 @@ import threads.Thread1;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class ApplicationGUI {
 
-    AppAdministrator administrator;
+    private AppAdministrator administrator;
 
+    private Player playerToEdit;
     private ObservableList<Player> players;
 
     public ApplicationGUI() throws IOException {
@@ -150,8 +151,8 @@ public class ApplicationGUI {
         double robberies = Double.parseDouble(tfPlayerRobberies.getText());
         double blocks = Double.parseDouble(tfPlayerBlocks.getText());
         administrator.addPlayer(name,lastName,age,team,points,rebound,assists,robberies,blocks);
-        System.out.println(administrator.getArrayList().toString());
-        System.out.println(administrator.getByPoints().treeToList().toString());
+        //System.out.println(administrator.getArrayList().toString());
+        //System.out.println(administrator.getByPoints().treeToList().toString());
         //setupTable(1);
         System.out.println("Funciono pri");
 
@@ -185,6 +186,34 @@ public class ApplicationGUI {
 
     @FXML
     void actEditPlayer(ActionEvent event) {
+        if(administrator.getArrayList().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Lo sentimos");
+            alert.setHeaderText(null);
+            alert.setContentText("No hay datos cargados, por favor agregue un jugador o importelos en el area de realizar consulta");
+            alert.showAndWait();
+        }else{
+            boolean out = false;
+            TextInputDialog dialog = new TextInputDialog("");
+            dialog.setTitle("Editar ");
+            dialog.setHeaderText("Ingrese el nombre del jugador al que le va a editar sus datos");
+            dialog.setContentText("Nombre:");
+
+
+            Optional<String> result = dialog.showAndWait();
+
+            if (result.isPresent()){
+                for (int i = 0; i <administrator.getArrayList().size() && !out ; i++) {
+                    if(result.get().equals(administrator.getArrayList().get(i).getName())){
+                        playerToEdit = administrator.getArrayList().get(i);
+                        out = true;
+
+                    }
+                }
+
+            }
+
+        }
 
     }
 
@@ -224,7 +253,7 @@ public class ApplicationGUI {
            for (int i = lower; i <=upper ; i++) {
                Node<Player, Double> temp = administrator.getByAssits().search((double) i);
                if (temp != null) {
-                   playersFiltred.add(temp.getValue());
+                   playersFiltred.addAll(temp.getValue());
                }
 
            }
@@ -256,7 +285,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByBlocks().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
@@ -289,7 +318,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByPoints().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
@@ -322,7 +351,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByRebounds().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }
@@ -355,7 +384,7 @@ public class ApplicationGUI {
             for (int i = lower; i <=upper ; i++) {
                 Node<Player, Double> temp = administrator.getByRobberies().search((double) i);
                 if (temp != null) {
-                    playersFiltred.add(temp.getValue());
+                    playersFiltred.addAll(temp.getValue());
                 }
 
             }

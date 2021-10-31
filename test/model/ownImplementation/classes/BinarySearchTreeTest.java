@@ -59,16 +59,16 @@ class BinarySearchTreeTest {
     @Test
     public void successor1(){
         setup3();
-        assertEquals(3, tree.successor(tree.search(2)).getValue());
+        assertEquals(3, tree.successor(tree.search(2)).getValue().get(0));
     }
     @Test
     public void successor2(){
         setup3();
-        assertEquals(7, tree.successor(tree.search(5)).getValue());
+        assertEquals(7, tree.successor(tree.search(5)).getValue().get(0));
     }
     @Test
     public void successor3(){
         setup3();
-        assertEquals(5, tree.successor(tree.search(3)).getValue());
+        assertEquals(5, tree.successor(tree.search(3)).getValue().get(0));
     }
 }
