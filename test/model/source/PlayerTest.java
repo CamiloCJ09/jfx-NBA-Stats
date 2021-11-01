@@ -21,9 +21,5 @@ class PlayerTest {
         assertEquals(10,player1.compareTo(player2));
     }
 
-    @Test
-    void compareTo2(){
-        setup1();
-        assertEquals(-10,player2.compareTo(player1));
-    }
+
 }

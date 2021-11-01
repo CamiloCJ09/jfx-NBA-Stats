@@ -69,13 +69,13 @@ class AVLTreeTest {
     @Test
     void testMin() {
         setUp1();
-        assertEquals(8,tree.max().getKey());
+        assertEquals(1,tree.min().getKey());
     }
 
     @Test
     void testMax() {
         setUp1();
-        assertEquals(1,tree.min().getKey());
+        assertEquals(8,tree.max().getKey());
     }
 
 
