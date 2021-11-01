@@ -206,9 +206,15 @@ public class ApplicationGUI {
 
     private List<Player> playersFiltred;
 
+    private ArrayList<Integer> deleteIndexes;
+
     @FXML
     void actDelete2(ActionEvent event) {
-
+        int deleteIndex = tvDelateDelatePane.getSelectionModel().getSelectedIndex();
+        int toDeleteIndex = deleteIndexes.get(deleteIndex);
+        administrator.getArrayList().remove(toDeleteIndex);
+        eliminatePlayers.remove(deleteIndex);
+        tvDelateDelatePane.refresh();
     }
 
     @FXML
@@ -222,13 +228,13 @@ public class ApplicationGUI {
             alert.setContentText("Debe llenar el campo de nombre y apellido primero");
             alert.showAndWait();
         }
-        ArrayList<Integer> index = administrator.searchPlayer(name,lastName);
-        System.out.println("Vacio? "+index.isEmpty());
+        deleteIndexes = administrator.searchPlayer(name,lastName);
+        System.out.println("Vacio? "+deleteIndexes.isEmpty());
         ArrayList<Player> listOfAll = administrator.getArrayList();
         ArrayList<Player> list = new ArrayList<>();
 
-        for(int i = 0; i<index.size(); i++){
-            list.add(listOfAll.get(index.get(i)));
+        for(int i = 0; i<deleteIndexes.size(); i++){
+            list.add(listOfAll.get(deleteIndexes.get(i)));
         }
 
         System.out.println("Vacio? "+list.isEmpty());
